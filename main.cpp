@@ -3,7 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game Project - Luka Jelisavac", sf::Style::Close);
 
     //Deltatime
     float deltaTime = 0.0f;
@@ -16,9 +16,19 @@ int main()
     //Player speed
     const float speed = 640.0f;
 
+    //Background
+    sf::Texture background;
+    background.loadFromFile("assets/test.jpg");
+    
+    sf::Sprite backgroundSprite(background);
+    
+    //Game loop
     while (window.isOpen())
     {
+        //dTime
         deltaTime = clock.restart().asSeconds();
+
+        //Events and sfml stuff
         sf::Event evnt;
         while (window.pollEvent(evnt))
         {
@@ -29,7 +39,7 @@ int main()
 
 
         //Player slider movement
-
+        //Movement available only if player is inside of screen
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             if(player.getPlayerPosition().x > 0.0f){
@@ -45,9 +55,10 @@ int main()
         }
 
         window.clear();
-        
-        player.drawPlayer(&window);
 
+        window.draw(backgroundSprite);
+        player.drawPlayer(&window);
+        
         window.display();
     }
 
