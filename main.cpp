@@ -3,8 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
-    sf::CircleShape shape(16.0f);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game");
 
     //Deltatime
     float deltaTime = 0.0f;
