@@ -14,7 +14,7 @@ int main()
     Player player;
 
     //Player speed
-    const float speed = 300.0f;
+    const float speed = 640.0f;
 
     while (window.isOpen())
     {
@@ -32,12 +32,16 @@ int main()
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
-           player.movePlayer(-1*speed, deltaTime);
+            if(player.getPlayerPosition().x > 0.0f){
+            player.movePlayer(-1*speed, deltaTime);
+            }
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-           player.movePlayer(speed, deltaTime);
+            if(player.getPlayerPosition().x < 1024.0f){
+            player.movePlayer(speed, deltaTime);
+            }
         }
 
         window.clear();
