@@ -6,6 +6,12 @@ As far as i know, to build and run the program just navigate to project and type
 
 ## Log
 
+### 20.05.22.
+
+[+] Added catching detector
+[+] Added score counter (not visible in game yet)
+[+] Added a "coin" that increases speed as score gets highter (Coin.hpp and Coin.cpp)
+
 ### 25.04.22.
 [+] I made player slider movement limited so it can't leave the screen.\
 [+] I added background sprite and texture (that i have stolen from somewhere on the internet)
