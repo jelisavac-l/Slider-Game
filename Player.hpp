@@ -10,7 +10,7 @@ private:
 public:
     Player();
     void drawPlayer(sf::RenderWindow* wnd);
-    sf::RectangleShape getPlayerBody();
     void movePlayer(float offset, float deltaTime);
+    sf::RectangleShape getPlayerBody();
     sf::Vector2f getPlayerPosition();
 };
