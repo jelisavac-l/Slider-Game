@@ -17,9 +17,24 @@ sf::RectangleShape Coin::getCoinBody()
     return *coinBody;
 }
 
-void Coin::moveCoin(float offset, float deltaTime)
+void Coin::moveCoinY(float offset, float deltaTime)
 {
     coinBody->move(sf::Vector2f(0.0f, offset*deltaTime));
+}
+
+void Coin::moveCoinX(float offset)
+{
+    coinBody->move(sf::Vector2f(offset, 0.0f));
+    if(coinBody->getPosition().x < 0 || coinBody->getPosition().x > 1248)
+    {
+        coinBody->setPosition(0.0f, 0.0f);
+    }
+}
+
+void Coin::setXCoordinate(float x)
+{
+    // Y stays the same, only x changes
+    coinBody->setPosition(x, coinBody->getPosition().y);
 }
 
 sf::Vector2f Coin::getCoinPosition(){

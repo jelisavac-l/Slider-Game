@@ -10,7 +10,9 @@ private:
 public:
     Coin();
     void drawCoin(sf::RenderWindow* wnd);
-    void moveCoin(float offset, float deltaTime);
+    void moveCoinY(float offset, float deltaTime);
+    void moveCoinX(float offset);
+    void setXCoordinate(float x);
     sf::RectangleShape getCoinBody();
     sf::Vector2f getCoinPosition();
 };
