@@ -8,6 +8,8 @@ As far as i know, to build and run the program just navigate to project and type
 ### 22.05.22.
 [+] Added a simple starting menu :)
 
+![test2](https://user-images.githubusercontent.com/87701765/169673544-551af913-f835-4162-b3e9-74fcb07158de.jpg)
+
 ### 21.05.22.
 [+] Added first version of coin respawning\
 [+] Added function to stop game if coin drops to the floor\
@@ -22,3 +24,4 @@ As far as i know, to build and run the program just navigate to project and type
 ### 25.04.22.
 [+] I made player slider movement limited so it can't leave the screen.\
 [+] I added background sprite and texture (that i have stolen from somewhere on the internet)
+
