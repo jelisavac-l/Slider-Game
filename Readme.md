@@ -5,6 +5,9 @@ As far as i know, to build and run the program just navigate to project and type
 
 ## Log
 
+### 22.05.22.
+[+] Added a simple starting menu :)
+
 ### 21.05.22.
 [+] Added first version of coin respawning\
 [+] Added function to stop game if coin drops to the floor\
