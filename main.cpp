@@ -7,8 +7,15 @@
 //Testing purposes
 #include <iostream>
 
+//Definitons of later defined functions
+void mainMenu();
+
 int main()
 {
+
+    //Display main menu before game starts
+    mainMenu();
+
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game Project - Luka Jelisavac", sf::Style::Close);
 
     //Deltatime
@@ -141,4 +148,59 @@ int main()
     }
 
     return 0;
+}
+
+//Implementations
+void mainMenu()
+{
+    sf::RenderWindow menu(sf::VideoMode(1280, 720),"", sf::Style::None);
+/*
+    //Font and text for showing score
+    sf::Font font;
+    if(!font.loadFromFile("ProggyClean.ttf"))
+    {
+        std::cerr << "Font loading error.\n";
+        menu.close();
+    }
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Slider Game by: Luka Jelisavac\n Press any key to continue...");
+    text.setCharacterSize(60);
+    text.setPosition(sf::Vector2f(248.0f, 100.0f));
+    text.setFillColor(sf::Color::White);
+*/
+
+    //Instead of writing text, i could just make an image that already has text
+    sf::Texture background;
+    background.loadFromFile("assets/test2.jpg");
+    
+    sf::Sprite backgroundSprite(background);
+
+    while(menu.isOpen())
+    {
+        sf::Event evnt;
+        while (menu.pollEvent(evnt))
+        {
+            if (evnt.type == sf::Event::KeyPressed)
+                menu.close();
+        }
+
+        /*
+         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            text.move(sf::Vector2f(-0.5f, 0.0f));
+            std::cout << "X: " << text.getPosition().x << " Y: " << text.getPosition().y << "\n";
+        }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            text.move(sf::Vector2f(0.5f, 0.0f));
+            std::cout << "X: " << text.getPosition().x << " Y: " << text.getPosition().y << "\n";
+        }
+        */
+        menu.clear();
+        menu.draw(backgroundSprite);
+        menu.display();
+    }
 }
