@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string.h>
 #include <cstdlib>
 #include "Player.hpp"
@@ -9,18 +10,21 @@
 
 //Definitons of later defined functions
 void mainMenu();
+void logCmd(const char* str, float val);
 
 int main()
 {
 
     //Display main menu before game starts
-    mainMenu();
+    //mainMenu();
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game Project - Luka Jelisavac", sf::Style::Close);
 
     //Deltatime
     float deltaTime = 0.0f;
     sf::Clock clock;
+
+    // ~S e l f  E x p l a n a t o r y~
     bool isGameActive = true;
 
     //Player slider thing
@@ -89,26 +93,38 @@ int main()
             //Random number generator
             int range = 1280 - 0 + 1;
             int num = rand() % range + 0;
-
-            //We want number from -640 to +640 so we shift it 640 places to the left
-            num -= 640;
             
             //Check if X coordinate is on screen
             if(num < 0) num = 0;
             if(num > 1280) num = 1280 - 32;
 
-            //End of rng
+            /*
+                First we move coin to X = 0 and then we give it random x coordinate
+                because .setPosition() is broken somehow...
+            */
+
+
+            //This moves coin to the top
+
+            //This sets coin to X = 0
+            coin.moveCoinX(coin.getCoinPosition().x * -1);
+
+            //This will move coin X places to the left
+            coin.moveCoinX((float)num);
+            
+            //And this will move coin to the top
             coin.moveCoinY(-640.0f, 1);
-            coin.moveCoinX(float(num));
+            
             score++;
 
             //Making coin faster each time it is caught
-            coinSpeed += 25.0f;
+            coinSpeed += 20.0f;
 
             //Logging and testing purposes
-            std::cout << "Score: " << score << " ";
-            std::cout << "Random X Coordinate: " << num << std::endl;
-            std::cout << "Coin-Speed: " << coinSpeed << "\n";
+            logCmd("Score", (float)score);
+            logCmd("Rnd(x)", (float)num);
+            logCmd("Speed", coinSpeed);
+            std::cout << "-----------------\n";
 
             //Displaying score on screen
             std::string scoreChar = "Score: "; 
@@ -153,29 +169,26 @@ int main()
 //Implementations
 void mainMenu()
 {
-    sf::RenderWindow menu(sf::VideoMode(1280, 720),"", sf::Style::None);
-/*
-    //Font and text for showing score
-    sf::Font font;
-    if(!font.loadFromFile("ProggyClean.ttf"))
-    {
-        std::cerr << "Font loading error.\n";
-        menu.close();
-    }
+    sf::RenderWindow menu(sf::VideoMode(1280, 720), "", sf::Style::None);
 
-    sf::Text text;
-    text.setFont(font);
-    text.setString("Slider Game by: Luka Jelisavac\n Press any key to continue...");
-    text.setCharacterSize(60);
-    text.setPosition(sf::Vector2f(248.0f, 100.0f));
-    text.setFillColor(sf::Color::White);
-*/
+    //dTime for animations
+    float deltaTime = 0.0f;
+    sf::Clock clock;
+
+    //Loading music 
+    sf::Music music;
+    if(!music.openFromFile("audio/mainmenu1.ogg")) std::cerr << "Failed loading music...\n";
+    music.setVolume(40.0f);
+    music.play();
 
     //Instead of writing text, i could just make an image that already has text
     sf::Texture background;
     background.loadFromFile("assets/test2.jpg");
     
     sf::Sprite backgroundSprite(background);
+    backgroundSprite.setOrigin(sf::Vector2f(640.0f, 360.0f));
+    backgroundSprite.setPosition(640.0f, 360.0f);
+    
 
     while(menu.isOpen())
     {
@@ -184,23 +197,23 @@ void mainMenu()
         {
             if (evnt.type == sf::Event::KeyPressed)
                 menu.close();
+                //music.~Music();
+                //background.~Texture();
         }
 
-        /*
-         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            text.move(sf::Vector2f(-0.5f, 0.0f));
-            std::cout << "X: " << text.getPosition().x << " Y: " << text.getPosition().y << "\n";
-        }
+        deltaTime = clock.restart().asSeconds();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            text.move(sf::Vector2f(0.5f, 0.0f));
-            std::cout << "X: " << text.getPosition().x << " Y: " << text.getPosition().y << "\n";
-        }
-        */
+        
+
         menu.clear();
         menu.draw(backgroundSprite);
         menu.display();
     }
+
+    
+}
+
+void logCmd(const char* str, float val)
+{
+    std::cout << str << ": " << val << std::endl;
 }

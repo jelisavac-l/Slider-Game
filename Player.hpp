@@ -6,6 +6,7 @@ class Player{
 
 private:
     sf::RectangleShape *playerBody;
+    sf::Texture playerTexture;
 
 public:
     Player();

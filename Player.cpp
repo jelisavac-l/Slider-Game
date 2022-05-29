@@ -3,7 +3,8 @@
 
 Player::Player(){
     playerBody = new sf::RectangleShape(sf::Vector2f(256.0f, 32.0f));
-    playerBody->setFillColor(sf::Color(71, 156, 22));  
+    playerTexture.loadFromFile("assets/PlayerTex.png");
+    playerBody->setTexture(&playerTexture);
     playerBody->setPosition(sf::Vector2f(512.0f, 640.0f));
 }
 
