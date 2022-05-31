@@ -16,7 +16,7 @@ int main()
 {
 
     //Display main menu before game starts
-    //mainMenu();
+    mainMenu();
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Slider Game Project - Luka Jelisavac", sf::Style::Close);
 
@@ -31,8 +31,10 @@ int main()
     Player player;
 
     //Player Speed
-    const float playerSpeed = 640.0f;
+    float playerSpeed = 640.0f;
 
+    //Coin
+    Coin coin;
     //Coin Speed
     float coinSpeed = 160.0f;
 
@@ -57,9 +59,15 @@ int main()
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
 
-    //Coin
-    Coin coin;
-    
+    sf::SoundBuffer blipBuffer;
+    if(!blipBuffer.loadFromFile("audio/blip.wav"))
+    {
+        std::cerr << "Failed loding sound: blip.\n"; 
+    }
+
+    sf::Sound blip;
+    blip.setBuffer(blipBuffer);
+
     //Game score
     int score = 0;
 
@@ -90,6 +98,10 @@ int main()
         //Catching mechanism
         if(coin.getCoinBody().getGlobalBounds().intersects(player.getPlayerBody().getGlobalBounds()))
         {
+            
+            score++;
+            blip.play();
+
             //Random number generator
             int range = 1280 - 0 + 1;
             int num = rand() % range + 0;
@@ -114,16 +126,16 @@ int main()
             
             //And this will move coin to the top
             coin.moveCoinY(-640.0f, 1);
-            
-            score++;
 
             //Making coin faster each time it is caught
             coinSpeed += 20.0f;
+            playerSpeed += 10.0f;
 
             //Logging and testing purposes
             logCmd("Score", (float)score);
-            logCmd("Rnd(x)", (float)num);
-            logCmd("Speed", coinSpeed);
+            logCmd("New X pos", (float)num);
+            logCmd("coinSpeed", coinSpeed);
+            logCmd("playerSpeed", playerSpeed);
             std::cout << "-----------------\n";
 
             //Displaying score on screen
